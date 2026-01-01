@@ -1,0 +1,75 @@
+(venv) kolim@home-amd-max395:~/Projects/test_max395$ python ./gpu_benchmark_extended.py
+
+======================================================================
+  Extended GPU Benchmark - AMD Strix Halo
+======================================================================
+
+PyTorch version: 2.9.1+rocm7.1.1.git351ff442
+CUDA/HIP available: True
+GPU: AMD Radeon Graphics
+Total GPU Memory: 96.00 GB
+
+======================================================================
+  Matrix Multiplication - Size Scaling
+======================================================================
+
+Size       Iterations   CPU Time     GPU Time     Speedup   
+----------------------------------------------------------------------
+1000x1000  100              0.1804s     0.0781s      2.31x
+2000x2000  100              1.0295s     0.5984s      1.72x
+5000x5000  50               8.4126s    11.1316s      0.76x
+8000x8000  20              13.9072s    19.3192s      0.72x
+10000x10000 10              13.3540s    19.4187s      0.69x
+15000x15000 5               21.6172s    38.5963s      0.56x
+
+======================================================================
+  ML Workload Benchmarks
+======================================================================
+
+2D Convolution (CNN layer):
+Batch Size   Iterations   CPU Time     GPU Time     Speedup   
+----------------------------------------------------------------------
+1            20               0.1545s     0.0132s     11.73x
+4            20               0.7120s     0.0455s     15.65x
+8            20               1.2163s     0.0893s     13.62x
+16           20               2.0829s     0.1771s     11.76x
+32           20               3.6794s     0.3513s     10.47x
+
+======================================================================
+  FP16 (Half Precision) Performance
+======================================================================
+
+Size       Iterations   FP32 Time    FP16 Time    FP16 Speedup   
+----------------------------------------------------------------------
+5000x5000  50              11.0903s     0.3147s         35.24x
+8000x8000  30              29.0109s     0.7196s         40.32x
+10000x10000 20              38.8633s     0.9616s         40.42x
+15000x15000 10              77.2915s     2.0020s         38.61x
+
+======================================================================
+  Element-wise Operations
+======================================================================
+
+Size       Iterations   CPU Time     GPU Time     Speedup   
+----------------------------------------------------------------------
+5000x5000  1000            23.9229s     4.9441s      4.84x
+10000x10000 1000            90.4918s    19.2459s      4.70x
+15000x15000 1000           178.5431s    42.8825s      4.16x
+20000x20000 1000           345.3852s    76.8360s      4.50x
+
+======================================================================
+  Benchmark Complete
+======================================================================
+
+💡 Observations for Integrated GPUs (like Strix Halo):
+  • Larger workloads typically show better GPU speedup
+  • Convolution operations often benefit more from GPU
+  • FP16 operations may provide significant speedup
+  • Small matrices may be faster on CPU due to overhead
+
+💡 To improve GPU performance:
+  • Ensure high performance mode: sudo rocm-smi --setperflevel high
+  • Use larger batch sizes for ML training
+  • Consider FP16/mixed precision training
+  • Check ROCm driver optimization for your GPU arch
+(venv) kolim@home-amd-max395:~/Projects/test_max395$ 
